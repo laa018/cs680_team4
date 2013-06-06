@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="effortmetrics.Project" table="project" catalog="public">
+    <class name="seminer.Project" table="project" catalog="public">
         <id name="projectName" type="string">
             <column name="project_name" />
             <generator class="assigned" />

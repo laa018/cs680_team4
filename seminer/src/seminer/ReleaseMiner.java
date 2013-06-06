@@ -6,7 +6,6 @@ import org.hibernate.Session;
 
 import cvsanaly.Scmlog;
 import cvsanaly.Tags;
-import effortmetrics.ReleaseOverview;
 
 public class ReleaseMiner {
 

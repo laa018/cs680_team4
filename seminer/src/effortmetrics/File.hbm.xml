@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="effortmetrics.File" table="file" catalog="public">
+    <class name="seminer.File" table="file" catalog="public">
         <composite-id>
             <key-property name="file_id" type="int">
                 <column name="file_id"></column>

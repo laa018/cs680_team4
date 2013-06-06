@@ -15,7 +15,6 @@ import cvsanaly.FileLinks;
 import cvsanaly.FileTypes;
 import cvsanaly.Metrics;
 import cvsanaly.Repositories;
-import effortmetrics.File;
 
 public class FileMiner {
 	

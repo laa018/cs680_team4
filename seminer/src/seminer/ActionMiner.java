@@ -7,8 +7,6 @@ import org.hibernate.Session;
 import cvsanaly.Actions;
 import cvsanaly.CommitsLines;
 import cvsanaly.Scmlog;
-import effortmetrics.Action;
-import effortmetrics.File;
 
 public class ActionMiner {
 	
@@ -83,7 +81,7 @@ public class ActionMiner {
 		}
 	}
 
-	public static void update(Session s, String projectName, int realId, effortmetrics.People p2) {
+	public static void update(Session s, String projectName, int realId, seminer.People p2) {
 		List<Action> actions = s.createQuery("FROM Action WHERE person_id = '" + realId + "' AND project_name = '" + projectName + "' AND alias IS NULL").list();
 		for (Action action : actions) {
 			action.setPerson_id(Integer.valueOf(p2.getPersonId()).toString());

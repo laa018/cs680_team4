@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="effortmetrics.Communication" table="communication" catalog="public">
+    <class name="seminer.Communication" table="communication" catalog="public">
         <id name="message_id" type="int">
             <column name="message_id" />
             <generator class="assigned" />

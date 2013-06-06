@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="effortmetrics.Issues" table="issues" catalog="public">
+    <class name="seminer.Issues" table="issues" catalog="public">
         <id name="issue_id" type="string">
             <column name="issue_id" />
             <generator class="assigned" />

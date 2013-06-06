@@ -1,4 +1,4 @@
-package effortmetrics;
+package seminer;
 
 import java.io.Serializable;
 

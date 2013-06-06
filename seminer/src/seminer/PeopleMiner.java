@@ -42,7 +42,7 @@ public class PeopleMiner {
 		for (bicho.People bichoPerson : bichoPeople) {
 			System.out.print(bichoPerson.getName() + " with aliases " + bichoPerson.getUserId());
 			
-			effortmetrics.People effortMetricsPeople = new effortmetrics.People();
+			seminer.People effortMetricsPeople = new seminer.People();
 			effortMetricsPeople.setProjectName(projectName);
 			effortMetricsPeople.setPersonId(i);
 			effortMetricsPeople.setAliases(bichoPerson.getUserId());
@@ -69,7 +69,7 @@ public class PeopleMiner {
 				
 				if(match && ! noAlias) {
 					System.out.print(", " + cvsanalyPerson.getEmail());
-					effortmetrics.People effortMetricsPeopleAlias = new effortmetrics.People();
+					seminer.People effortMetricsPeopleAlias = new seminer.People();
 					effortMetricsPeopleAlias.setProjectName(projectName);
 					effortMetricsPeopleAlias.setPersonId(i);
 					effortMetricsPeopleAlias.setAliases(cvsanalyPerson.getEmail());
@@ -95,7 +95,7 @@ public class PeopleMiner {
 			i++;
 		}
 		for (cvsanaly.People cvsanalyPerson : cvsanalyPeople) {
-			effortmetrics.People effortMetricsPeople = new effortmetrics.People();
+			seminer.People effortMetricsPeople = new seminer.People();
 			effortMetricsPeople.setProjectName(projectName);
 			effortMetricsPeople.setPersonId(i);
 			effortMetricsPeople.setAliases(cvsanalyPerson.getEmail());
