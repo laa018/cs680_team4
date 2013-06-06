@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="effortmetrics.Action" table="action" catalog="public">
+        <id name="action_id" type="int">
+            <column name="action_id" />
+            <generator class="assigned" />
+        </id>
+        
+<property name="action_type" type="string"><column name="action_type" /></property>
+<property name="lines_added" type="int"><column name="lines_added" /></property>
+<property name="lines_removed" type="int"><column name="lines_removed" /></property>
+<property name="lines_modified" type="int"><column name="lines_modified" /></property>
+<property name="action_timestamp" type="timestamp"><column name="action_timestamp" /></property>
+<property name="revision" type="int"><column name="revision" /></property>
+<property name="patch_name" type="string"><column name="patch_name" /></property>
+<property name="commit_message" type="string"><column name="commit_message" /></property>
+<property name="release_number" type="string"><column name="release_number" /></property>
+<property name="file_id" type="int"><column name="file_id" /></property>
+<property name="relative_path" type="string"><column name="relative_path" /></property>
+<property name="branch_name" type="string"><column name="branch_name" /></property>
+<property name="issue_id" type="int"><column name="issue_id" /></property>
+<property name="person_id" type="string"><column name="person_id" /></property>
+<property name="alias" type="string"><column name="alias" /></property>
+<property name="project_name" type="string"><column name="project_name" /></property>   
+	</class>
+</hibernate-mapping>

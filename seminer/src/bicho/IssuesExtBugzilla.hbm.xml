@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 2:06:40 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="bicho.IssuesExtBugzilla" table="issues_ext_bugzilla" catalog="bicho">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="version" type="string">
+            <column name="version" length="32" />
+        </property>
+        <property name="alias" type="string">
+            <column name="alias" length="32" />
+        </property>
+        <property name="deltaTs" type="timestamp">
+            <column name="delta_ts" length="19" not-null="true" />
+        </property>
+        <property name="reporterAccessible" type="string">
+            <column name="reporter_accessible" length="32" />
+        </property>
+        <property name="cclistAccessible" type="string">
+            <column name="cclist_accessible" length="32" />
+        </property>
+        <property name="classificationId" type="string">
+            <column name="classification_id" length="32" />
+        </property>
+        <property name="classification" type="string">
+            <column name="classification" length="32" />
+        </property>
+        <property name="product" type="string">
+            <column name="product" length="32" />
+        </property>
+        <property name="component" type="string">
+            <column name="component" length="32" />
+        </property>
+        <property name="repPlatform" type="string">
+            <column name="rep_platform" length="32" />
+        </property>
+        <property name="opSys" type="string">
+            <column name="op_sys" length="32" />
+        </property>
+        <property name="dupId" type="java.lang.Integer">
+            <column name="dup_id" />
+        </property>
+        <property name="bugFileLoc" type="string">
+            <column name="bug_file_loc" length="32" />
+        </property>
+        <property name="statusWhiteboard" type="string">
+            <column name="status_whiteboard" length="32" />
+        </property>
+        <property name="targetMilestone" type="string">
+            <column name="target_milestone" length="32" />
+        </property>
+        <property name="votes" type="java.lang.Integer">
+            <column name="votes" />
+        </property>
+        <property name="everconfirmed" type="string">
+            <column name="everconfirmed" length="32" />
+        </property>
+        <property name="qaContact" type="string">
+            <column name="qa_contact" length="32" />
+        </property>
+        <property name="estimatedTime" type="string">
+            <column name="estimated_time" length="32" />
+        </property>
+        <property name="remainingTime" type="string">
+            <column name="remaining_time" length="32" />
+        </property>
+        <property name="actualTime" type="string">
+            <column name="actual_time" length="32" />
+        </property>
+        <property name="deadline" type="timestamp">
+            <column name="deadline" length="19" />
+        </property>
+        <property name="keywords" type="string">
+            <column name="keywords" length="32" />
+        </property>
+        <property name="flag" type="string">
+            <column name="flag" length="32" />
+        </property>
+        <property name="cc" type="string">
+            <column name="cc" length="32" />
+        </property>
+        <property name="groupBugzilla" type="string">
+            <column name="group_bugzilla" length="32" />
+        </property>
+        <property name="issueId" type="int">
+            <column name="issue_id" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>

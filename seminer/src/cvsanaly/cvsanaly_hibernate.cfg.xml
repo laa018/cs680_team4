@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cvsanaly</property>
+        <property name="hibernate.connection.username">operator</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <mapping resource="cvsanaly/FileTypes.hbm.xml" />
+        <mapping resource="cvsanaly/Tags.hbm.xml" />
+        <mapping resource="cvsanaly/ActionsFileNames.hbm.xml" />
+        <mapping resource="cvsanaly/Files.hbm.xml" />
+        <mapping resource="cvsanaly/FileLinks.hbm.xml" />
+        <mapping resource="cvsanaly/Scmlog.hbm.xml" />
+        <mapping resource="cvsanaly/Actions.hbm.xml" />
+        <mapping resource="cvsanaly/Branches.hbm.xml" />
+        <mapping resource="cvsanaly/ActionFiles.hbm.xml" />
+        <mapping resource="cvsanaly/CommitsLines.hbm.xml" />
+        <mapping resource="cvsanaly/TagRevisions.hbm.xml" />
+        <mapping resource="cvsanaly/Metrics.hbm.xml" />
+        <mapping resource="cvsanaly/People.hbm.xml" />
+        <mapping resource="cvsanaly/FileCopies.hbm.xml" />
+        <mapping resource="cvsanaly/Repositories.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

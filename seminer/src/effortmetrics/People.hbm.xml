@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="effortmetrics.People" table="people" catalog="public">
+        <composite-id>
+            <key-property name="personId" type="int">
+                <column name="person_id"></column>
+            </key-property>
+            <key-property name="aliases" type="string">
+                <column name="aliases"></column>
+            </key-property>
+        </composite-id>
+        <property name="projectName" type="string">
+            <column name="project_name" />
+        </property>
+        <property name="authorName" type="string">
+            <column name="author_name" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" />
+        </property>
+        <property name="role" type="string">
+            <column name="role" />
+        </property>
+        <property name="systemInUse" type="string">
+            <column name="system_in_use" />
+        </property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="effortmetrics.File" table="file" catalog="public">
+        <composite-id>
+            <key-property name="file_id" type="int">
+                <column name="file_id"></column>
+            </key-property>
+            <key-property name="relative_path" type="string">
+                <column name="relative_path"></column>
+            </key-property>
+            <key-property name="branch_name" type="string">
+                <column name="branch_name"></column>
+            </key-property>
+        </composite-id>
+        <property name="file_type" type="string">
+            <column name="file_type" />
+        </property>
+        <property name="release_number" type="string">
+            <column name="release_number" />
+        </property>
+        <property name="raw_LOC" type="int">
+            <column name="raw_LOC" />
+        </property>
+
+<property name="CKJMWMC" type="int"><column name="`CKJM - WMC`" /></property>
+<property name="PROPIN1N" type="int"><column name="`PROP-IN-1-N`" /></property>
+<property name="PROPOUT1N" type="int"><column name="`PROP-OUT-1-N`" /></property>
+<property name="PROPIN1D" type="int"><column name="`PROP-IN-1-D`" /></property>
+<property name="PROPOUT1D" type="int"><column name="`PROP-OUT1-D`" /></property>
+<property name="PROPIN3N" type="int"><column name="`PROP-IN-3-N`" /></property>
+<property name="PROPOUT3N" type="int"><column name="`PROP-OUT-3-N`" /></property>
+<property name="PROPIN3D" type="int"><column name="`PROP-IN-3-D`" /></property>
+<property name="PROPOUT3D" type="int"><column name="`PROP-OUT-3-D`" /></property>
+<property name="PROPIN5N" type="int"><column name="`PROP-IN-5-N`" /></property>
+<property name="PROPOUT5N" type="int"><column name="`PROP-OUT-5-N`" /></property>
+<property name="PROPIN5D" type="int"><column name="`PROP-IN-5-D`" /></property>
+<property name="PROPOUT5D" type="int"><column name="`PROP-OUT-5-D`" /></property>
+<property name="PROPIN10N" type="int"><column name="`PROP-IN-10-N`" /></property>
+<property name="PROPOUT10N" type="int"><column name="`PROP-OUT-10-N`" /></property>
+<property name="PROPIN10D" type="int"><column name="`PROP-IN-10-D`" /></property>
+<property name="PROPOUT10D" type="int"><column name="`PROP-OUT-10-D`" /></property>
+<property name="PROPIN20D" type="int"><column name="`PROP-IN-20-D`" /></property>
+<property name="PROPOUT20D" type="int"><column name="`PROP-OUT-20-D`" /></property>
+<property name="CKJMDIT" type="int"><column name="`CKJM - DIT`" /></property>
+<property name="CKJMNOC" type="int"><column name="`CKJM - NOC`" /></property>
+<property name="CKJMCBO" type="int"><column name="`CKJM - CBO`" /></property>
+<property name="CKJMRFC" type="int"><column name="`CKJM - RFC`" /></property>
+<property name="CKJMLCOM" type="int"><column name="`CKJM - LCOM`" /></property>
+<property name="CKJMCa" type="int"><column name="`CKJM - Ca`" /></property>
+<property name="CKJMNPM" type="int"><column name="`CKJM - NPM`" /></property>
+<property name="mccabe_max" type="int"><column name="mccabe_max" /></property>
+<property name="mccabe_min" type="int"><column name="mccabe_min" /></property>
+<property name="mccabe_sum" type="int"><column name="mccabe_sum" /></property>
+<property name="mccabe_mean" type="int"><column name="mccabe_mean" /></property>
+<property name="mccabe_median" type="int"><column name="mccabe_median" /></property>
+<property name="halstead_length" type="int"><column name="halstead_length" /></property>
+<property name="halstead_vol" type="int"><column name="halstead_vol" /></property>
+ <property name="halstead_level" type="int"><column name="halstead_level" /></property>
+<property name="halstead_md" type="int"><column name="halstead_md" /></property>
+<property name="effort_action" type="int"><column name="effort_action" /></property>
+<property name="effort_churn" type="int"><column name="effort_churn" /></property>
+
+        <property name="project_name" type="string">
+            <column name="project_name" />
+        </property>   
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 2:06:40 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="bicho.Issues" table="issues" catalog="bicho">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="trackerId" type="int">
+            <column name="tracker_id" not-null="true" />
+        </property>
+        <property name="issue" type="string">
+            <column name="issue" not-null="true" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="32" />
+        </property>
+        <property name="summary" type="string">
+            <column name="summary" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="65535" not-null="true" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="32" not-null="true" />
+        </property>
+        <property name="resolution" type="string">
+            <column name="resolution" length="32" />
+        </property>
+        <property name="priority" type="string">
+            <column name="priority" length="32" />
+        </property>
+        <property name="submittedBy" type="int">
+            <column name="submitted_by" not-null="true" />
+        </property>
+        <property name="submittedOn" type="timestamp">
+            <column name="submitted_on" length="19" not-null="true" />
+        </property>
+        <property name="assignedTo" type="int">
+            <column name="assigned_to" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

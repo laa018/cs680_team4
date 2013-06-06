@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 2:07:58 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="cvsanaly.FileCopies" table="file_copies" catalog="cvsanaly">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="toId" type="java.lang.Integer">
+            <column name="to_id" />
+        </property>
+        <property name="fromId" type="java.lang.Integer">
+            <column name="from_id" />
+        </property>
+        <property name="fromCommitId" type="java.lang.Integer">
+            <column name="from_commit_id" />
+        </property>
+        <property name="newFileName" type="string">
+            <column name="new_file_name" length="16777215" />
+        </property>
+        <property name="actionId" type="java.lang.Integer">
+            <column name="action_id" />
+        </property>
+    </class>
+</hibernate-mapping>

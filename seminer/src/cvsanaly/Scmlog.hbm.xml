@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 2:07:58 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="cvsanaly.Scmlog" table="scmlog" catalog="cvsanaly">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="rev" type="string">
+            <column name="rev" length="16777215" />
+        </property>
+        <property name="committerId" type="java.lang.Integer">
+            <column name="committer_id" />
+        </property>
+        <property name="authorId" type="java.lang.Integer">
+            <column name="author_id" />
+        </property>
+        <property name="date" type="timestamp">
+            <column name="date" length="19" />
+        </property>
+        <property name="message" type="string">
+            <column name="message" />
+        </property>
+        <property name="composedRev" type="java.lang.Boolean">
+            <column name="composed_rev" />
+        </property>
+        <property name="repositoryId" type="java.lang.Integer">
+            <column name="repository_id" />
+        </property>
+    </class>
+</hibernate-mapping>

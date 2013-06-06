@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="effortmetrics.Project" table="project" catalog="public">
+        <id name="projectName" type="string">
+            <column name="project_name" />
+            <generator class="assigned" />
+        </id>
+        <property name="owner" type="string">
+            <column name="owner" />
+        </property>
+        <property name="startTimestamp" type="timestamp">
+            <column name="start_timestamp" />
+        </property>
+        <property name="bugTrackingSystem" type="string">
+            <column name="bug_tracking_system" />
+        </property>
+        <property name="repository" type="string">
+            <column name="repository" />
+        </property>
+        <property name="mailingList" type="string">
+            <column name="mailling_list" />
+        </property>
+        <property name="irc" type="string">
+            <column name="irc" />
+        </property>
+        <property name="wiki" type="string">
+            <column name="wiki" />
+        </property>
+        <property name="endTimestamp" type="timestamp">
+            <column name="end_timestamp" />
+        </property>        
+	</class>
+</hibernate-mapping>

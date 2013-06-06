@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="effortmetrics.Communication" table="communication" catalog="public">
+        <id name="message_id" type="int">
+            <column name="message_id" />
+            <generator class="assigned" />
+        </id>
+<property name="thread_id" type="int"><column name="thread_id" /></property>
+<property name="subject" type="string"><column name="subject" /></property>
+<property name="creation_timestamp" type="timestamp"><column name="creation_timestamp" /></property>
+<property name="media" type="string"><column name="media" /></property>
+<property name="arrive_timestamp" type="timestamp"><column name="arrive_timestamp" /></property>
+<property name="sub_subject" type="string"><column name="sub_subject" /></property>
+<property name="message_body" type="string"><column name="message_body" /></property>
+<property name="is_reply_to" type="string"><column name="is_reply_to" /></property>
+<property name="recipient_type" type="string"><column name="recipient_type" /></property>
+<property name="person_id" type="int"><column name="person_id" /></property>
+<property name="alias" type="string"><column name="alias" /></property>
+<property name="project_name" type="string"><column name="project_name" /></property>   
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="effortmetrics.Issues" table="issues" catalog="public">
+        <id name="issue_id" type="string">
+            <column name="issue_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="issue_update_timestamp" type="timestamp">
+            <column name="issue_update_timestamp" />
+        </property>
+        <property name="issue_summary" type="string">
+            <column name="issue_summary" />
+        </property>
+        <property name="issue_description" type="string">
+            <column name="issue_description" />
+        </property>
+        <property name="issue_submit_timestamp" type="timestamp">
+            <column name="issue_submit_timestamp" />
+        </property>
+        <property name="issue_resolution" type="string">
+            <column name="issue_resolution" />
+        </property>
+        <property name="issue_priority" type="string">
+            <column name="issue_priority" />
+        </property>
+        <property name="issue_type" type="string">
+            <column name="issue_type" />
+        </property>
+        <property name="issue_resolution_timestamp" type="timestamp">
+            <column name="issue_resolution_timestamp" />
+        </property>
+        <property name="issue_assigned_to" type="string">
+            <column name="issue_assigned_to" />
+        </property>
+        <property name="issue_submitted_by" type="string">
+            <column name="issue_submitted_by" />
+        </property>
+        <property name="issue_bug_severity" type="string">
+            <column name="issue_bug_severity" />
+        </property>
+        <property name="issue_tracking" type="string">
+            <column name="issue_tracking" />
+        </property>
+        <property name="project_name" type="string">
+            <column name="project_name" />
+        </property>   
+	</class>
+</hibernate-mapping>

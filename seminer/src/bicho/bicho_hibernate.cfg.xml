@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bicho</property>
+        <property name="hibernate.connection.username">operator</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        <mapping resource="bicho/IssuesWatchers.hbm.xml" />
+        <mapping resource="bicho/Changes.hbm.xml" />
+        <mapping resource="bicho/RelatedTo.hbm.xml" />
+        <mapping resource="bicho/Trackers.hbm.xml" />
+        <mapping resource="bicho/IssuesExtBugzilla.hbm.xml" />
+        <mapping resource="bicho/SupportedTrackers.hbm.xml" />
+        <mapping resource="bicho/Attachments.hbm.xml" />
+        <mapping resource="bicho/Issues.hbm.xml" />
+        <mapping resource="bicho/Comments.hbm.xml" />
+        <mapping resource="bicho/People.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

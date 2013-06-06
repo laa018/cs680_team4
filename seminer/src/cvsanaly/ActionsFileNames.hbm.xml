@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 2:07:58 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="cvsanaly.ActionsFileNames" table="actions_file_names" catalog="cvsanaly">
+        <composite-id name="id" class="cvsanaly.ActionsFileNamesId">
+            <key-property name="id" type="int">
+                <column name="id" />
+            </key-property>
+            <key-property name="type" type="string">
+                <column name="type" length="1" />
+            </key-property>
+            <key-property name="fileId" type="java.lang.Integer">
+                <column name="file_id" />
+            </key-property>
+            <key-property name="newFileName" type="string">
+                <column name="new_file_name" length="16777215" />
+            </key-property>
+            <key-property name="commitId" type="java.lang.Integer">
+                <column name="commit_id" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

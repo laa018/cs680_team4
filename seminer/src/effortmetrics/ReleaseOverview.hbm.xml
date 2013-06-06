@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 11:01:53 AM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="effortmetrics.ReleaseOverview" table="releaseoverview" catalog="public">
+        <id name="release_number" type="string">
+            <column name="release_number" />
+            <generator class="assigned" />
+        </id>
+        <property name="project_name" type="string">
+            <column name="project_name" />
+        </property>
+        <property name="num_of_files" type="int">
+            <column name="num_of_files" />
+        </property>
+        <property name="loc" type="int">
+            <column name="loc" />
+        </property>
+        <property name="release_timestamp" type="timestamp">
+            <column name="release_timestamp" />
+        </property>
+        <property name="release_location" type="string">
+            <column name="release_location" />
+        </property>
+        <property name="num_of_committers" type="int">
+            <column name="num_of_committers" />
+        </property>
+        <property name="num_of_developers" type="int">
+            <column name="num_of_developers" />
+        </property>
+        <property name="num_of_changerequest" type="int">
+            <column name="num_of_changerequest" />
+        </property>
+        <property name="branch_name" type="string">
+            <column name="branch_name" />
+        </property>
+   	</class>
+</hibernate-mapping>

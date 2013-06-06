@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="seminer">
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="seminer.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/hibernate-core.jar"/>
+        <pathelement location="lib/commons-logging.jar"/>
+        <pathelement location="lib/dom4j.jar"/>
+        <pathelement location="lib/hibernate/hibernate-commons-annotations.jar"/>
+        <pathelement location="lib/jboss-logging.jar"/>
+        <pathelement location="lib/jboss-transaction-1.1-api.jar"/>
+        <pathelement location="lib/hibernate-entitymanager.jar"/>
+        <pathelement location="lib/jpa.jar"/>
+        <pathelement location="lib/mysql-connector-java.jar"/>
+        <pathelement location="lib/javassist.jar"/>
+        <pathelement location="lib/antlr.jar"/>
+        <pathelement location="lib/postgresql-jdbc-9.2.1002.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="seminer.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target name="PeopleMiner">
+        <java classname="seminer.PeopleMiner" failonerror="true" fork="yes">
+            <classpath refid="seminer.classpath"/>
+        </java>
+    </target>
+    <target name="SEMiner">
+        <java classname="seminer.SEMiner" failonerror="true" fork="yes">
+            <classpath refid="seminer.classpath"/>
+        </java>
+    </target>
+    <target name="ActionMiner">
+        <java classname="seminer.ActionMiner" failonerror="true" fork="yes">
+            <classpath refid="seminer.classpath"/>
+        </java>
+    </target>
+</project>
