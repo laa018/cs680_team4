@@ -3,10 +3,11 @@ package seminer;
 import org.hibernate.Session;
 
 public class DefaultMiner implements Miner {
+	ActionReader actionReader;
 
 	@Override
 	public void setActionReader(ActionReader r) {
-		// TODO Auto-generated method stub
+		this.actionReader = r;
 
 	}
 
@@ -86,11 +87,18 @@ public class DefaultMiner implements Miner {
 			releaseMiner.mine(i, projects[i].getProjectName());
 		}
 		
-		ActionMiner actionMiner = new ActionMiner();
-		actionMiner.setWrite(write);
+//		ActionMiner actionMiner = new ActionMiner();
+//		actionMiner.setWrite(write);
+//		for(int i = repositoryIdStart; i < projects.length; i++) {
+//			System.out.println("Mining actions for " + projects[i].getProjectName());
+//			actionMiner.mine(i, projects[i].getProjectName());
+//		}
+
+		//new ActionReader call
+		actionReader.setWrite(write);
 		for(int i = repositoryIdStart; i < projects.length; i++) {
 			System.out.println("Mining actions for " + projects[i].getProjectName());
-			actionMiner.mine(i, projects[i].getProjectName());
+			actionReader.parseFile(i, projects[i].getProjectName());
 		}
 		
 		FileMiner fileMiner = new FileMiner();
