@@ -1,5 +1,6 @@
 package cvsanaly;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -11,30 +12,16 @@ import seminer.MinerUtils;
 public class CvsAnalyReader implements ActionReader {
 	
 	private final static String tagquery = "SELECT DISTINCT tags.name FROM tags LEFT OUTER JOIN tag_revisions ON tag_revisions.tag_id = tags.id LEFT OUTER JOIN file_links ON file_links.commit_id = tag_revisions.commit_id";
-	
-	private boolean write;
-	
-	public boolean isWrite() {
-		return write;
-	}
-	
-	public void setWrite(boolean write) {
-		this.write = write;
-	}
 
 	@Override
-	public List<Action> parseFile(int repositoryId, String projectName) {
+	public List<Action> parseFile(String projectName) {
 		Session effortMetricsSession = MinerUtils.openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
-		if(isTableDirty(effortMetricsSession, projectName)) {
-			MinerUtils.commitAndCloseSession(effortMetricsSession);
-			return null;
-		}
 
 		Integer maxId = (Integer)effortMetricsSession.createQuery("SELECT MAX(action_id) FROM Action").uniqueResult();
 		
 		Session cvsanalySession = MinerUtils.openSession("cvsanaly/cvsanaly_hibernate.cfg.xml");		
-		List<Object[]> resultList = cvsanalySession.createSQLQuery("SELECT * FROM scmlog LEFT OUTER JOIN actions ON actions.commit_id = scmlog.id LEFT OUTER JOIN commits_lines ON commits_lines.commit_id = scmlog.id WHERE scmlog.repository_id = " + repositoryId).addEntity("scmlog", Scmlog.class).addEntity("actions", Actions.class).addEntity("commits_lines", CommitsLines.class).list();
-		List<Action> actionList = null;
+		List<Object[]> resultList = cvsanalySession.createSQLQuery("SELECT * FROM scmlog LEFT OUTER JOIN actions ON actions.commit_id = scmlog.id LEFT OUTER JOIN commits_lines ON commits_lines.commit_id = scmlog.id LEFT OUTER JOIN repositories ON repositories.id = scmlog.repository_id WHERE repositories.name LIKE '%" + projectName + "%'").addEntity("scmlog", Scmlog.class).addEntity("actions", Actions.class).addEntity("commits_lines", CommitsLines.class).addEntity("repositories", Repositories.class).list();
+		List<Action> actionList = new ArrayList<Action>();
 		for (Object[] result : resultList) {
 			Scmlog scmlog = (Scmlog)result[0];
 			Actions cvsanalyAction = (Actions)result[1];
@@ -64,9 +51,6 @@ public class CvsAnalyReader implements ActionReader {
 				effortMetricsAction.setRevision(Integer.valueOf(revisionNumber));
 			} catch (NumberFormatException e) {
 				
-			}
-			if(write) {
-				effortMetricsSession.save(effortMetricsAction);
 			}
 			
 			actionList.add(effortMetricsAction);

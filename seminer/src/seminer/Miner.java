@@ -14,6 +14,6 @@ public interface Miner {
 	
 	public void setWriter(Writer w);
 	
-	public void mine(String project);
+	public void mine(Project[] projects);
 	
 }
