@@ -67,10 +67,10 @@ public class CvsAnalyFileReader implements FileReader
       this.verbose = verbose;
    }
 
-   public ArrayList<File> parseFile(int repositoryId, String projectName)
+   public List<File> parseFile(String projectName)
    {
       Map<Integer, Set<String>> cache = new HashMap<Integer, Set<String>>();
-      ArrayList<File> fileObjList = new ArrayList<File>();
+      List<File> fileObjList = new ArrayList<File>();
 
       Session effortMetricsSession = MinerUtils
             .openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
