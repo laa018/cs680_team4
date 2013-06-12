@@ -15,6 +15,7 @@ public class Issues {
 	Date issue_resolution_timestamp; 
 	String issue_assigned_to;
 	String issue_submitted_by; 
+	String issue_status; 
 	public String getIssue_id() {
 		return issue_id;
 	}
@@ -98,6 +99,12 @@ public class Issues {
 	}
 	public void setProject_name(String project_name) {
 		this.project_name = project_name;
+	}
+	public String getIssue_status() {
+		return issue_status;
+	}
+	public void setIssue_status(String issue_status) {
+		this.issue_status = issue_status;
 	}
 	String issue_bug_severity; 
 	String issue_tracking;
