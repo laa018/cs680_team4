@@ -217,19 +217,17 @@ public class CvsAnalyFileReader implements FileReader
                      effortMetricsFile.setHalstead_vol(metrics.getHalsteadVol());
                   }
 
-                  if (write)
-                  {
-                     if (!linkOnly)
-                     {
-                        effortMetricsSession.saveOrUpdate(effortMetricsFile);
-                     }
-                     ActionMiner.update(effortMetricsSession, projectName, type.getFileId(),
-                           effortMetricsFile);
-                  }
-                  else
-                  {
-                     fileObjList.add(effortMetricsFile);
-                  }
+                  fileObjList.add(effortMetricsFile);
+
+//                  if (write)
+//                  {
+//                     if (!linkOnly)
+//                     {
+//                        effortMetricsSession.saveOrUpdate(effortMetricsFile);
+//                     }
+//                     ActionMiner.update(effortMetricsSession, projectName, type.getFileId(),
+//                           effortMetricsFile);
+//                  }
                }
             }
          }
