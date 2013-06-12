@@ -2,17 +2,16 @@ package seminer;
 
 import java.util.List;
 
-import org.hibernate.Session;
-
 public class DefaultMiner implements Miner {
-	ActionReader actionReader;
-	IssueReader issueReader;
-	Writer writer;
+	
+	private ActionReader actionReader;
+	private IssueReader issueReader;
+	private ReleaseOverviewReader releaseOverviewReader;
+	private Writer writer;
 	
 	@Override
 	public void setActionReader(ActionReader r) {
 		this.actionReader = r;
-
 	}
 
 	@Override
@@ -24,7 +23,6 @@ public class DefaultMiner implements Miner {
 	@Override
 	public void setIssueReader(IssueReader r) {
 		this.issueReader = r;
-
 	}
 
 	@Override
@@ -40,9 +38,13 @@ public class DefaultMiner implements Miner {
 	}
 
 	@Override
+	public void setReleaseOverviewReader(ReleaseOverviewReader r) {
+		this.releaseOverviewReader = r;
+	}
+	
+	@Override
 	public void setWriter(Writer w) {
 		this.writer = w;
-
 	}
 
 	@Override
@@ -62,23 +64,12 @@ public class DefaultMiner implements Miner {
 			writer.writeProject(projects[i]);	
 		}
 		
-		Session effortMetricsSession = MinerUtils.openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
-		effortMetricsSession.beginTransaction();
-		try {
-			if(write) {
-				for(int i = 0; i < projects.length; i++) {
-					effortMetricsSession.saveOrUpdate(projects[i]);
-				}
-			}	
-		} finally {
-			MinerUtils.commitAndCloseSession(effortMetricsSession);
-		}
-		
-		ReleaseMiner releaseMiner = new ReleaseMiner();
-		releaseMiner.setWrite(write);
-		for(int i = 0; i < projects.length; i++) {
-			System.out.println("Mining releases for " + projects[i].getProjectName());
-			releaseMiner.mine(i, projects[i].getProjectName());
+		for (Project project : projects) {
+			System.out.println("Mining releases for " + project.getProjectName());
+			List<ReleaseOverview> releaseOverviewList = releaseOverviewReader.read(project.getProjectName());
+			for (ReleaseOverview releaseOverview : releaseOverviewList) {
+				writer.writeReleaseOverview(releaseOverview);
+			}
 		}
 
 		//Parsing and writing for Action objects

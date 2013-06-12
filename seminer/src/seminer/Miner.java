@@ -11,6 +11,8 @@ public interface Miner {
 	public void setMailingListReader(MailingListReader r);
 	
 	public void setPeopleReader(PeopleReader r);
+
+	public void setReleaseOverviewReader(ReleaseOverviewReader r);
 	
 	public void setWriter(Writer w);
 	

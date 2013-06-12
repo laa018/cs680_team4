@@ -11,6 +11,7 @@
         <property name="hibernate.connection.password">cs680-spring</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.search.autoregister_listeners">false</property>
+        <property name="hibernate.jdbc.batch_size">500</property>
         <mapping resource="effortmetrics/Action.hbm.xml" />
         <mapping resource="effortmetrics/Communication.hbm.xml" />
         <mapping resource="effortmetrics/File.hbm.xml" />

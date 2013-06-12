@@ -11,8 +11,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Session;
+
 import bicho.BichoReader;
 import cvsanaly.CvsAnalyReader;
+import cvsanaly.CvsAnalyReleaseOverviewReader;
 
 public class SEMiner {
 
@@ -62,12 +65,15 @@ public class SEMiner {
 	        projectList[i] = project;
         }
         
+		Session effortMetricsSession = MinerUtils.openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
+        
 		Miner miner = new DefaultMiner();
 		miner.setActionReader(new CvsAnalyReader());
 		miner.setFileReader(null);
 		miner.setIssueReader(new BichoReader());
 		miner.setMailingListReader(null);
 		miner.setPeopleReader(null);
+		miner.setReleaseOverviewReader(new CvsAnalyReleaseOverviewReader(effortMetricsSession));
 		miner.setWriter(new ConsoleWriter());
 		miner.mine(projectList);
 
