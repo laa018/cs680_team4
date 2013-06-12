@@ -10,12 +10,16 @@ import seminer.Issues;
 import seminer.MinerUtils;
 
 public class BichoReader implements IssueReader {
-
+	private Session bichoSession;
+	
+	public BichoReader(Session s) {
+		this.bichoSession = s;
+	}
+	
 	@Override
 	public List<Issues> parseFile(String projectName) {
 		Session effortMetricsSession = MinerUtils.openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
 		
-		Session bichoSession = MinerUtils.openSession("bicho/bicho_hibernate.cfg.xml");	
 		List<Object[]> resultList = bichoSession.createSQLQuery("SELECT * FROM issues LEFT OUTER JOIN changes ON issues.tracker_id = changes.id LEFT OUTER JOIN trackers ON trackers.id = issues.tracker_id  WHERE trackers.url LIKE '%" + projectName + "%'").addEntity("issues", bicho.Issues.class).addEntity("changes", Changes.class).addEntity("trackers", Trackers.class).list();
 		List<Issues> issueList = new ArrayList<Issues>();
 		for (Object[] result : resultList) {
@@ -44,7 +48,6 @@ public class BichoReader implements IssueReader {
 		}
 		
 		MinerUtils.commitAndCloseSession(effortMetricsSession);
-		MinerUtils.commitAndCloseSession(bichoSession);
 		return issueList;
 	}
 
