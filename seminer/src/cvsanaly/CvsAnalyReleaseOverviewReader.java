@@ -24,12 +24,11 @@ public class CvsAnalyReleaseOverviewReader implements ReleaseOverviewReader {
 		for (Object[] result : results) {
 			Tags tag = (Tags)result[0];
 			Scmlog scmlog = (Scmlog)result[1];
-			System.out.println(tag.getName() + " created on " + scmlog.getDate());
 			
 			String branchName = null;
 			List<Branches> branches = s.createSQLQuery("SELECT DISTINCT {branches.*} FROM actions LEFT OUTER JOIN branches ON actions.branch_id = branches.id WHERE actions.commit_id = " + scmlog.getId()).addEntity("branches", Branches.class).list();
 			if(branches.size() != 1) {
-				System.err.println("Tag created from multiple branches");
+				System.err.println(project + " tag " + tag.getName() + " created from multiple branches");
 			} else {
 				branchName = branches.get(0).getName();
 			}

@@ -1,15 +1,11 @@
 package seminer;
 
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.Session;
 
@@ -20,6 +16,8 @@ import cvsanaly.CvsAnalyReleaseOverviewReader;
 public class SEMiner {
 
 	public static void main(String[] args) throws IOException, ParseException{      
+		Session cvsanalySession = MinerUtils.openSession("cvsanaly/cvsanaly_hibernate.cfg.xml");
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		System.out.println("Enter in the number of projects to be processed (i.e. 2, 3): ");
@@ -64,16 +62,14 @@ public class SEMiner {
 	        
 	        projectList[i] = project;
         }
-        
-		Session effortMetricsSession = MinerUtils.openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
-        
+                
 		Miner miner = new DefaultMiner();
 		miner.setActionReader(new CvsAnalyReader());
 		miner.setFileReader(null);
 		miner.setIssueReader(new BichoReader());
 		miner.setMailingListReader(null);
 		miner.setPeopleReader(null);
-		miner.setReleaseOverviewReader(new CvsAnalyReleaseOverviewReader(effortMetricsSession));
+		miner.setReleaseOverviewReader(new CvsAnalyReleaseOverviewReader(cvsanalySession));
 		miner.setWriter(new ConsoleWriter());
 		miner.mine(projectList);
 
