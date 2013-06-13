@@ -27,7 +27,9 @@ public class CvsAnalyReleaseOverviewReader implements ReleaseOverviewReader {
 			
 			String branchName = null;
 			List<Branches> branches = s.createSQLQuery("SELECT DISTINCT {branches.*} FROM actions LEFT OUTER JOIN branches ON actions.branch_id = branches.id WHERE actions.commit_id = " + scmlog.getId()).addEntity("branches", Branches.class).list();
-			if(branches.size() != 1) {
+			if(branches.size() == 0) {
+				System.err.println(project + " tag " + tag.getName() + " not created from a branch");
+			} else if(branches.size() > 1) {
 				System.err.println(project + " tag " + tag.getName() + " created from multiple branches");
 			} else {
 				branchName = branches.get(0).getName();
