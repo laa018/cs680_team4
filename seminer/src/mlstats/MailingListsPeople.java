@@ -1,3 +1,5 @@
+package mlstats;
+
 public class MailingListsPeople implements java.io.Serializable {
 
    private String email_address;

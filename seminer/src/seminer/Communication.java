@@ -17,6 +17,7 @@ public class Communication {
 	String recipient_type;
 	int person_id;  
 	String alias;
+	
 	public int getMessage_id() {
 		return message_id;
 	}

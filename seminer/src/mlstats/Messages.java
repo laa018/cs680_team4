@@ -1,3 +1,5 @@
+package mlstats;
+
 import java.sql.Timestamp;
 
 public class Messages implements java.io.Serializable {

@@ -1,3 +1,5 @@
+package mlstats;
+
 import java.sql.Timestamp;
 
 public class MailingLists implements java.io.Serializable {

@@ -243,4 +243,17 @@ public class CvsAnalyFileReader implements FileReader
       return fileObjList;
    }
 
+   private boolean isTableDirty(Session s, String projectName)
+   {
+      List results = s.createQuery("FROM File WHERE project_name = '" + projectName + "'").list();
+      if (results.size() > 0)
+      {
+         return false;
+      }
+      else
+      {
+         return true;
+      }
+   }
+
 }

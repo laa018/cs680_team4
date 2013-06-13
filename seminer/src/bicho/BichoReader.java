@@ -11,7 +11,6 @@ import seminer.MinerUtils;
 
 public class BichoReader implements IssueReader {
 
-	@Override
 	public List<Issues> parseFile(String projectName) {
 		Session effortMetricsSession = MinerUtils.openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
 		
