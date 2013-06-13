@@ -112,7 +112,7 @@ public class DefaultMiner implements Miner {
 		for(int i = 0; i < projects.length; i++) {
 			System.out.println("Mining people for " + projects[i].getProjectName());
 			try {
-				peopleMiner.mine(i, projects[i].getProjectName());
+				peopleMiner.parseFile(projects[i].getProjectName());
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}

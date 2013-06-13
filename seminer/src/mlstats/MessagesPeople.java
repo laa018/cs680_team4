@@ -1,3 +1,5 @@
+package mlstats;
+
 public class MessagesPeople implements java.io.Serializable {
 
    private String type_of_recipient;

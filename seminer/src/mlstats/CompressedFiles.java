@@ -1,3 +1,5 @@
+package mlstats;
+
 import java.sql.Timestamp;
 
 public class CompressedFiles implements java.io.Serializable {

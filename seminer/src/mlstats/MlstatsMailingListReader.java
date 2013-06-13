@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import cvsanaly.Repositories;
+
 import seminer.Action;
 import seminer.ActionReader;
 import seminer.Communication;
+import seminer.MailingListReader;
 import seminer.MinerUtils;
 
-public class MlstatsMailingListReader implements ActionReader
+public class MlstatsMailingListReader implements MailingListReader
 {
 
    @Override
@@ -22,58 +25,47 @@ public class MlstatsMailingListReader implements ActionReader
             .openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
 
       Integer maxId = (Integer) effortMetricsSession.createQuery(
-            "SELECT MAX(person_id) FROM people").uniqueResult();
+            "SELECT MAX(message_id) FROM communication").uniqueResult();
 
       Session mlstatsSession = MinerUtils.openSession("mlstats/mlstats_hibernate.cfg.xml");
       List<Object[]> resultList = mlstatsSession
             .createSQLQuery(
-                  "SELECT * FROM people LEFT OUTER JOIN mailing_lists_people ON people.email_address = mailing_lists_people.email_address LEFT OUTER JOIN mailing_lists ON mailing_lists_people.mailing_list_url = mailing_lists.mailing_list_url WHERE mailing_lists.project_name LIKE '%"
-                        + projectName + "%'").addEntity("scmlog", Scmlog.class)
-            .addEntity("actions", Actions.class).addEntity("commits_lines", CommitsLines.class)
-            .addEntity("repositories", Repositories.class).list();
+                  "SELECT * FROM messages LEFT OUTER JOIN messages_people ON messages.message_ID = messages_people.message_ID LEFT OUTTER JOIN people ON messages_people.email_address = people.email_address "
+                        + " LEFT OUTER JOIN mailing_lists_people ON people.email_address = mailing_lists_people.email_address LEFT OUTER JOIN mailing_lists ON mailing_lists_people.mailing_list_url = mailing_lists.mailing_list_url WHERE mailing_lists.project_name LIKE '%"
+                        + projectName + "%'").addEntity("Messages", Messages.class).addEntity("MessagesPeople", MessagesPeople.class)
+                        .addEntity("People", People.class).addEntity("MailingListsPeople", MailingListsPeople.class)
+            .addEntity("MailingLists", MailingLists.class).list();
 
       for (Object[] result : resultList)
       {
-         Scmlog scmlog = (Scmlog) result[0];
-         Actions cvsanalyAction = (Actions) result[1];
-         CommitsLines commitsLines = (CommitsLines) result[2];
+         Messages messages = (Messages) result[0];
+         MessagesPeople messagesPeople = (MessagesPeople) result[1];
+         People people = (People) result[2];
+         MailingListsPeople mailingListsPeople = (MailingListsPeople) result[3];
+         MailingLists mailingLists = (MailingLists) result[4];
 
-         Action effortMetricsAction = new Action();
-         effortMetricsAction.setProject_name(projectName);
-         effortMetricsAction.setAction_id(++maxId);
-         effortMetricsAction.setAction_timestamp(scmlog.getDate());
-         effortMetricsAction.setAction_type("Version Control Commits");
-         effortMetricsAction.setCommit_message(scmlog.getMessage());
-         // effortMetricsAction.setIssue_id(issue_id);
-         effortMetricsAction.setLines_added(commitsLines.getAdded());
-         // effortMetricsAction.setLines_modified(lines_modified);
-         effortMetricsAction.setLines_removed(commitsLines.getRemoved());
-         // effortMetricsAction.setPatch_name(patch_name);
-         effortMetricsAction.setPerson_id(scmlog.getCommitterId().toString()); // Overwrite
-                                                                               // later
-                                                                               // when
-                                                                               // importing
-                                                                               // people
-         // effortMetricsAction.setAlias(alias);
-         effortMetricsAction.setFile_id(cvsanalyAction.getFileId()); // Overwrite
-                                                                     // later
-                                                                     // when
-                                                                     // importing
-                                                                     // files
-         // effortMetricsAction.setRelative_path(relative_path);
-         // effortMetricsAction.setBranch_name(branch_name);
-         effortMetricsAction.setRelease_number(release_number);
-         String revisionNumber = scmlog.getRev();
-         try
-         {
-            effortMetricsAction.setRevision(Integer.valueOf(revisionNumber));
-         }
-         catch (NumberFormatException e)
-         {
+         
+         Communication effortMetricsCommunication = new Communication();
+         effortMetricsCommunication.setMessage_id(++maxId);
+         effortMetricsCommunication.setThread_id(0);
+         effortMetricsCommunication.setProject_name(projectName);
+         effortMetricsCommunication.setSubject(messages.getSubject());
+         effortMetricsCommunication.setCreation_timestamp(messages.getArrival_date());
+         effortMetricsCommunication.setMedia("email");
+         effortMetricsCommunication.setArrive_timestamp(messages.getArrival_date());
+         effortMetricsCommunication.setSub_subject("");
+         effortMetricsCommunication.setMessage_body(messages.getMessage_body());
+         effortMetricsCommunication.setIs_reply_to(messages.getIs_response_of());
+         effortMetricsCommunication.setRecipient_type(messagesPeople.getType_of_recipient());
 
-         }
+         seminer.People tempPeople = (seminer.People) effortMetricsSession.createQuery(
+               "SELECT * FROM people WHERE author_name LIKE '%" + people.getName() + "%';" );
+         
+         effortMetricsCommunication.setPerson_id(tempPeople.getPersonId());
+         effortMetricsCommunication.setAlias(tempPeople.getAliases());
+         
 
-         comList.add(effortMetricsAction);
+         comList.add(effortMetricsCommunication);
       }
 
       MinerUtils.commitAndCloseSession(effortMetricsSession);
@@ -84,7 +76,7 @@ public class MlstatsMailingListReader implements ActionReader
 
    private boolean isTableDirty(Session s, String projectName)
    {
-      List results = s.createQuery("FROM Action WHERE project_name = '" + projectName + "'").list();
+      List results = s.createQuery("FROM Communication WHERE project_name = '" + projectName + "'").list();
       if (results.size() > 0)
       {
          return false;

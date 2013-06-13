@@ -1,4 +1,4 @@
-
+package mlstats;
 
 // Generated Apr 27, 2013 2:07:58 PM by Hibernate Tools 4.0.0
 
