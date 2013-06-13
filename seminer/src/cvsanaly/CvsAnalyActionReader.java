@@ -9,7 +9,7 @@ import seminer.Action;
 import seminer.ActionReader;
 import seminer.MinerUtils;
 
-public class CvsAnalyReader implements ActionReader {
+public class CvsAnalyActionReader implements ActionReader {
 	
 	private final static String tagquery = "SELECT DISTINCT tags.name FROM tags LEFT OUTER JOIN tag_revisions ON tag_revisions.tag_id = tags.id LEFT OUTER JOIN file_links ON file_links.commit_id = tag_revisions.commit_id";
 

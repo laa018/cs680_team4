@@ -1,5 +1,7 @@
 package seminer;
 
-public interface FileReader {
+import java.util.List;
 
+public interface FileReader {
+   List<File> parseFile(String projectName);
 }

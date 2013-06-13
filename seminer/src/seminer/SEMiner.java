@@ -10,7 +10,7 @@ import java.util.Date;
 import org.hibernate.Session;
 
 import bicho.BichoReader;
-import cvsanaly.CvsAnalyReader;
+import cvsanaly.CvsAnalyActionReader;
 import cvsanaly.CvsAnalyReleaseOverviewReader;
 
 public class SEMiner {
@@ -64,7 +64,7 @@ public class SEMiner {
         }
                 
 		Miner miner = new DefaultMiner();
-		miner.setActionReader(new CvsAnalyReader());
+		miner.setActionReader(new CvsAnalyActionReader());
 		miner.setFileReader(null);
 		miner.setIssueReader(new BichoReader());
 		miner.setMailingListReader(null);

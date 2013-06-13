@@ -1,5 +1,7 @@
 package seminer;
 
-public interface PeopleReader {
+import java.util.List;
 
+public interface PeopleReader {
+   List<People> parseFile(String projectName);
 }
