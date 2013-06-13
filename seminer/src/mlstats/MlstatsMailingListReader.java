@@ -1,4 +1,4 @@
-package cvsanaly;
+package mlstats;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +7,17 @@ import org.hibernate.Session;
 
 import seminer.Action;
 import seminer.ActionReader;
+import seminer.Communication;
 import seminer.MinerUtils;
 
-public class MlstatsPeopleReader implements ActionReader
+public class MlstatsMailingListReader implements ActionReader
 {
 
    @Override
-   public List<People> parseFile(String projectName)
+   public List<Communication> parseFile(String projectName)
    {
+      List<Communication> comList = new ArrayList<Communication>();
+
       Session effortMetricsSession = MinerUtils
             .openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
 
@@ -28,7 +31,7 @@ public class MlstatsPeopleReader implements ActionReader
                         + projectName + "%'").addEntity("scmlog", Scmlog.class)
             .addEntity("actions", Actions.class).addEntity("commits_lines", CommitsLines.class)
             .addEntity("repositories", Repositories.class).list();
-      List<Action> actionList = new ArrayList<Action>();
+
       for (Object[] result : resultList)
       {
          Scmlog scmlog = (Scmlog) result[0];
@@ -70,12 +73,13 @@ public class MlstatsPeopleReader implements ActionReader
 
          }
 
-         actionList.add(effortMetricsAction);
+         comList.add(effortMetricsAction);
       }
 
       MinerUtils.commitAndCloseSession(effortMetricsSession);
       MinerUtils.commitAndCloseSession(mlstatsSession);
-      return actionList;
+
+      return comList;
    }
 
    private boolean isTableDirty(Session s, String projectName)

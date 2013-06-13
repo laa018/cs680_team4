@@ -1,11 +1,14 @@
 package seminer;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
 
-public class MlstatsPeopleReader {
+import cvsanaly.Repositories;
+
+public class PeopleMiner {
 
 	boolean write;
 	boolean linkOnly;
@@ -26,7 +29,9 @@ public class MlstatsPeopleReader {
 		this.write = write;
 	}
 	
-	public void mine(int repositoryId, String projectName) {
+	public List<People> parseFile(String projectName) {
+	   List<People> peopleList = new ArrayList<People>();
+	   
 		Session cvsanalySession = MinerUtils.openSession("cvsanaly/cvsanaly_hibernate.cfg.xml");
 		cvsanalySession.beginTransaction();
 		
@@ -36,6 +41,12 @@ public class MlstatsPeopleReader {
 		Session effortMetricsSession = MinerUtils.openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
 		effortMetricsSession.beginTransaction();
 
+		int repositoryId = 0;
+
+         Repositories repository = (Repositories) cvsanalySession.createQuery(
+               "FROM Repositories WHERE name  LIKE '%" + projectName + "%';");
+         repositoryId = repository.getId();
+         
 		int i = 0;
 		List<cvsanaly.People> cvsanalyPeople = cvsanalySession.createSQLQuery("select distinct people.* from people LEFT OUTER JOIN scmlog ON scmlog.author_id = people.id WHERE scmlog.repository_id = " + repositoryId).addEntity("people", cvsanaly.People.class).list();
 		List<bicho.People> bichoPeople = bichoSession.createSQLQuery("select distinct people.* from people where tracker_id = " + repositoryId).addEntity("people", bicho.People.class).list();
@@ -101,12 +112,13 @@ public class MlstatsPeopleReader {
 			effortMetricsPeople.setAliases(cvsanalyPerson.getEmail());
 			effortMetricsPeople.setAuthorName(cvsanalyPerson.getName());
 			effortMetricsPeople.setEmail(cvsanalyPerson.getEmail());
-			if(write) {
-				if(!linkOnly) {
-					effortMetricsSession.saveOrUpdate(effortMetricsPeople);
-				}
-				ActionMiner.update(effortMetricsSession, projectName, cvsanalyPerson.getId(), effortMetricsPeople);
-			}
+//			if(write) {
+//				if(!linkOnly) {
+//					effortMetricsSession.saveOrUpdate(effortMetricsPeople);
+//				}
+//				ActionMiner.update(effortMetricsSession, projectName, cvsanalyPerson.getId(), effortMetricsPeople);
+//			}
+			peopleList.add(effortMetricsPeople);
 			i++;
 		}
 		
@@ -124,6 +136,7 @@ public class MlstatsPeopleReader {
 		if(cvsanalySession.isOpen()) {
 			cvsanalySession.close();
 		}
+		return peopleList;
 	}
 	
 }

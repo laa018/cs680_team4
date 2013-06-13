@@ -4,8 +4,8 @@
 <!-- Generated Apr 27, 2013 2:07:58 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="group4_mlstats.People" table="people" catalog="group4_mlstats">
-        <id name="message_id" type="string">
-            <column name="message_id" />
+        <id name="message_ID" type="string">
+            <column name="message_ID" />
             <generator class="assigned" />
         </id>
         <property name="mailing_list_url" type="string">
