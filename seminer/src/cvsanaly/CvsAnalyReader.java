@@ -27,7 +27,7 @@ public class CvsAnalyReader implements ActionReader {
 			Actions cvsanalyAction = (Actions)result[1];
 			CommitsLines commitsLines = (CommitsLines)result[2];
 			
-			String release_number = (String) cvsanalySession.createSQLQuery(tagquery + " WHERE commit_id = " + scmlog.getId()).uniqueResult();
+			String release_number = (String) cvsanalySession.createSQLQuery(tagquery + " WHERE tag_revisions.commit_id = " + scmlog.getId()).uniqueResult();
 			
 			Action effortMetricsAction = new Action();
 			effortMetricsAction.setProject_name(projectName);
