@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-public class PeopleMiner {
+public class MlstatsPeopleReader {
 
 	boolean write;
 	boolean linkOnly;
