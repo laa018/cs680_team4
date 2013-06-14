@@ -5,7 +5,9 @@ import java.util.List;
 public class DefaultMiner implements Miner {
 	
 	private ActionReader actionReader;
+	private FileReader fileReader;
 	private IssueReader issueReader;
+	private PeopleReader peopleReader;
 	private ReleaseOverviewReader releaseOverviewReader;
 	private Writer writer;
 	
@@ -16,8 +18,7 @@ public class DefaultMiner implements Miner {
 
 	@Override
 	public void setFileReader(FileReader r) {
-		// TODO Auto-generated method stub
-
+		this.fileReader = r;
 	}
 
 	@Override
@@ -33,8 +34,7 @@ public class DefaultMiner implements Miner {
 
 	@Override
 	public void setPeopleReader(PeopleReader r) {
-		// TODO Auto-generated method stub
-
+		this.peopleReader = r;
 	}
 
 	@Override
@@ -50,8 +50,7 @@ public class DefaultMiner implements Miner {
 	@Override
 	public void mine(Project[] projects) {
 		boolean write = false;
-		boolean linkOnly = false;
-
+		
 		DeMiner deMiner = new DeMiner();
 		deMiner.setWrite(write);
 		for(int i = 0; i < projects.length; i++) {
@@ -59,63 +58,50 @@ public class DefaultMiner implements Miner {
 			deMiner.mine(i, projects[i].getProjectName());
 		}
 		
-		//Writing for Project objects
-		for(int i = 0; i < projects.length; i++) {
-			writer.writeProject(projects[i]);	
-		}
-		
 		for (Project project : projects) {
-			System.out.println("Mining releases for " + project.getProjectName());
-			List<ReleaseOverview> releaseOverviewList = releaseOverviewReader.read(project.getProjectName());
-			for (ReleaseOverview releaseOverview : releaseOverviewList) {
-				writer.writeReleaseOverview(releaseOverview);
+			System.out.println("Mining " + project.getProjectName());
+			writer.writeProject(project);
+			
+			if(releaseOverviewReader != null) {
+				System.out.println("Mining releases for " + project.getProjectName());
+				List<ReleaseOverview> releaseOverviewList = releaseOverviewReader.read(project.getProjectName());
+				for (ReleaseOverview releaseOverview : releaseOverviewList) {
+					writer.writeReleaseOverview(releaseOverview);
+				}
 			}
-		}
 
-		//Parsing and writing for Action objects
-		for(int i = 0; i < projects.length; i++) {
-			System.out.println("Mining actions for " + projects[i].getProjectName());
-			List<Action> actionList = actionReader.parseFile(projects[i].getProjectName());
-			
-			for (int z = 0; z < actionList.size(); z++){
-				writer.writeAction(actionList.get(z));
+			if(actionReader != null) {
+				System.out.println("Mining actions for " + project.getProjectName());
+				List<Action> actionList = actionReader.parseFile(project.getProjectName());
+				for (Action action : actionList) {
+					writer.writeAction(action);
+				}
 			}
 			
-		}
-
-		//Parsing and writing for Issue objects
-		for(int i = 0; i < projects.length; i++) {
-			System.out.println("Mining issues for " + projects[i].getProjectName());
-			List<Issues> issueList = issueReader.parseFile(projects[i].getProjectName());
-			
-			for (int z = 0; z < issueList.size(); z++){
-				writer.writeIssues(issueList.get(z));
+			if(issueReader != null) {
+				System.out.println("Mining issues for " + project.getProjectName());
+				List<Issues> issueList = issueReader.parseFile(project.getProjectName());
+				for (Issues issues : issueList) {
+					writer.writeIssues(issues);
+				}
 			}
 			
-		}
-		
-		FileMiner fileMiner = new FileMiner();
-		fileMiner.setWrite(write);
-		fileMiner.setLinkOnly(linkOnly);
-		for(int i = 0; i < projects.length; i++) {
-			System.out.println("Mining files for " + projects[i].getProjectName());
-			try {
-				fileMiner.mine(i, projects[i].getProjectName());
-			} catch (Exception e) {
-				e.printStackTrace(System.out);
+			if(fileReader != null) {
+				System.out.println("Mining files for " + project.getProjectName());
+				List<File> fileList = fileReader.parseFile(project.getProjectName());
+				for (File file : fileList) {
+					writer.writeFile(file);
+				}
 			}
-		}
-		
-		PeopleMiner peopleMiner = new PeopleMiner();
-		peopleMiner.setWrite(write);
-		peopleMiner.setLinkOnly(linkOnly);
-		for(int i = 0; i < projects.length; i++) {
-			System.out.println("Mining people for " + projects[i].getProjectName());
-			try {
-				peopleMiner.parseFile(projects[i].getProjectName());
-			} catch (Exception e) {
-				e.printStackTrace(System.out);
+			
+			if(peopleReader != null) {
+				System.out.println("Mining people for " + project.getProjectName());
+				List<People> peopleList = peopleReader.parseFile(project.getProjectName());
+				for (People people : peopleList) {
+					writer.writePeople(people);
+				}
 			}
+			
 		}
 		
 	}
