@@ -1,8 +1,9 @@
 package seminer;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Issues {
+public class Issues implements Serializable {
 	
 	String issue_id;
 	Date issue_update_timestamp;
@@ -109,5 +110,39 @@ public class Issues {
 	String issue_bug_severity; 
 	String issue_tracking;
 	String project_name;
+	
+	public IssuePk getPk() {
+		return new IssuePk(issue_id, issue_update_timestamp);
+	}
+	
+	public class IssuePk {
+		
+		private String issue_id;
+		private Date issue_update_timestamp;
+		
+		private IssuePk(String issue_id, Date issue_update_timestamp) {
+			this.issue_id = issue_id;
+			this.issue_update_timestamp = issue_update_timestamp;
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if(obj instanceof IssuePk) {
+				IssuePk ipk = (IssuePk) obj;
+				return (ipk != null
+						&& ipk.issue_id.equals(issue_id)
+						&& ((ipk.issue_update_timestamp == null && issue_update_timestamp == null)
+							|| (ipk.issue_update_timestamp != null && ipk.issue_update_timestamp.equals(issue_update_timestamp))));
+			} else {
+				return false;
+			}
+		}
+		
+		@Override
+		public int hashCode() {
+			return issue_id.hashCode() + issue_update_timestamp.hashCode();
+		}
+		
+	}
 
 }

@@ -17,16 +17,19 @@ public class EffortmetricsWriter implements Writer {
 	
 	private Session s;
 	private int c = 0;
+	private int currentMaxActionId;
 	
 	public EffortmetricsWriter(Session s) {
 		this.s = s;
 		if(!s.getTransaction().isActive()) {
 			s.beginTransaction();
 		}
+		this.currentMaxActionId = (Integer)s.createQuery("SELECT MAX(action_id) FROM Action").uniqueResult();
 	}
 	
 	@Override
 	public void writeAction(Action a) {
+		a.setAction_id(++currentMaxActionId);
 		write(a);
 	}
 
@@ -42,6 +45,7 @@ public class EffortmetricsWriter implements Writer {
 
 	@Override
 	public void writeIssues(Issues i) {
+		System.out.println(i.getIssue_id() + " " + i.getIssue_update_timestamp());
 		write(i);
 	}
 

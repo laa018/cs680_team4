@@ -11,13 +11,16 @@ import org.hibernate.Session;
 
 import bicho.BichoReader;
 import cvsanaly.CvsAnalyActionReader;
+import cvsanaly.CvsAnalyFileReader;
 import cvsanaly.CvsAnalyReleaseOverviewReader;
+import effortmetrics.EffortmetricsWriter;
 
 public class SEMiner {
 
 	public static void main(String[] args) throws IOException, ParseException{      
 		Session cvsanalySession = MinerUtils.openSession("cvsanaly/cvsanaly_hibernate.cfg.xml");
-		Session bichoSession = MinerUtils.openSession("bicho/bicho_hibernate.cfg.xml");	
+		Session bichoSession = MinerUtils.openSession("bicho/bicho_hibernate.cfg.xml");
+		Session effortMetricsSession = MinerUtils.openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -63,16 +66,27 @@ public class SEMiner {
 	        
 	        projectList[i] = project;
         }
-                
+        
+		boolean write = true;
+		DeMiner deMiner = new DeMiner();
+		deMiner.setWrite(write);
+		for(int i = 0; i < projectList.length; i++) {
+			System.out.println("Removing " + projectList[i].getProjectName());
+			deMiner.mine(i, projectList[i].getProjectName());
+		}
+        
 		Miner miner = new DefaultMiner();
 		miner.setActionReader(new CvsAnalyActionReader(cvsanalySession));
-		miner.setFileReader(null);
+		miner.setFileReader(new CvsAnalyFileReader(cvsanalySession));
 		miner.setIssueReader(new BichoReader(bichoSession));
 		miner.setMailingListReader(null);
 		miner.setPeopleReader(null);
 		miner.setReleaseOverviewReader(new CvsAnalyReleaseOverviewReader(cvsanalySession));
-		miner.setWriter(new ConsoleWriter());
+		//miner.setWriter(new ConsoleWriter());
+		miner.setWriter(new EffortmetricsWriter(effortMetricsSession));
 		miner.mine(projectList);
+		
+		MinerUtils.commitAndCloseSession(effortMetricsSession);
 
 		System.out.println("Done!");
 	}

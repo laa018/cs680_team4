@@ -49,14 +49,6 @@ public class DefaultMiner implements Miner {
 
 	@Override
 	public void mine(Project[] projects) {
-		boolean write = false;
-		
-		DeMiner deMiner = new DeMiner();
-		deMiner.setWrite(write);
-		for(int i = 0; i < projects.length; i++) {
-			System.out.println("Removing " + projects[i].getProjectName());
-			deMiner.mine(i, projects[i].getProjectName());
-		}
 		
 		for (Project project : projects) {
 			System.out.println("Mining " + project.getProjectName());

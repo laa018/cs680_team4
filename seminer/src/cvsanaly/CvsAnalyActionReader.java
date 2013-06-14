@@ -21,6 +21,7 @@ public class CvsAnalyActionReader implements ActionReader {
 	public List<Action> parseFile(String projectName) {
 		List<Object[]> resultList = s.createSQLQuery("SELECT * FROM scmlog LEFT OUTER JOIN actions ON actions.commit_id = scmlog.id " + /*LEFT OUTER JOIN commits_lines ON commits_lines.commit_id = scmlog.id*/ "LEFT OUTER JOIN repositories ON repositories.id = scmlog.repository_id WHERE repositories.name LIKE '%" + projectName + "%'").addEntity("scmlog", Scmlog.class).addEntity("actions", Actions.class)/*.addEntity("commits_lines", CommitsLines.class)*/.addEntity("repositories", Repositories.class).list();
 		List<Action> actionList = new ArrayList<Action>();
+		int i = 0;
 		for (Object[] result : resultList) {
 			Scmlog scmlog = (Scmlog)result[0];
 			Actions cvsanalyAction = (Actions)result[1];
@@ -30,7 +31,7 @@ public class CvsAnalyActionReader implements ActionReader {
 			
 			Action effortMetricsAction = new Action();
 			effortMetricsAction.setProject_name(projectName);
-			effortMetricsAction.setAction_id(cvsanalyAction.getId());
+			effortMetricsAction.setAction_id(i++);
 			effortMetricsAction.setAction_timestamp(scmlog.getDate());
 			effortMetricsAction.setAction_type("Version Control Commits");
 			effortMetricsAction.setCommit_message(scmlog.getMessage());			
