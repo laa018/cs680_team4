@@ -7,7 +7,6 @@ import org.hibernate.Session;
 
 import seminer.IssueReader;
 import seminer.Issues;
-import seminer.MinerUtils;
 
 public class BichoReader implements IssueReader {
 	
