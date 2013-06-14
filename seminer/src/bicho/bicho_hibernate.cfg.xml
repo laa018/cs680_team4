@@ -6,19 +6,20 @@
     <session-factory>
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/group4_bicho</property>
-        <property name="hibernate.connection.username">operator</property>
+        <property name="hibernate.connection.url">jdbc:mysql://art.cs.drexel.edu:3306/group4_bicho</property>
+        <property name="hibernate.connection.username">cs680</property>
+        <property name="hibernate.connection.password">cs680-spring</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.search.autoregister_listeners">false</property>
-        <mapping resource="group4_bicho/IssuesWatchers.hbm.xml" />
-        <mapping resource="group4_bicho/Changes.hbm.xml" />
-        <mapping resource="group4_bicho/RelatedTo.hbm.xml" />
-        <mapping resource="group4_bicho/Trackers.hbm.xml" />
-        <mapping resource="group4_bicho/IssuesExtBugzilla.hbm.xml" />
-        <mapping resource="group4_bicho/SupportedTrackers.hbm.xml" />
-        <mapping resource="group4_bicho/Attachments.hbm.xml" />
-        <mapping resource="group4_bicho/Issues.hbm.xml" />
-        <mapping resource="group4_bicho/Comments.hbm.xml" />
-        <mapping resource="group4_bicho/People.hbm.xml" />
+        <mapping resource="bicho/IssuesWatchers.hbm.xml" />
+        <mapping resource="bicho/Changes.hbm.xml" />
+        <mapping resource="bicho/RelatedTo.hbm.xml" />
+        <mapping resource="bicho/Trackers.hbm.xml" />
+        <mapping resource="bicho/IssuesExtBugzilla.hbm.xml" />
+        <mapping resource="bicho/SupportedTrackers.hbm.xml" />
+        <mapping resource="bicho/Attachments.hbm.xml" />
+        <mapping resource="bicho/Issues.hbm.xml" />
+        <mapping resource="bicho/Comments.hbm.xml" />
+        <mapping resource="bicho/People.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
