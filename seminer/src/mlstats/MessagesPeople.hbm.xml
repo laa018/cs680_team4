@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 2:07:58 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="group4_mlstats.MessagesPeople" table="messages_people" catalog="group4_mlstats">
+        <id name="type_of_recipient" type="string">
+            <column name="type_of_recipient" />
+            <generator class="assigned" />
+        </id>
+        <property name="message_id" type="string">
+            <column name="message_id" />
+        </property>
+        <property name="email_address" type="string">
+            <column name="email_address" />
+        </property>
+    </class>
+</hibernate-mapping>

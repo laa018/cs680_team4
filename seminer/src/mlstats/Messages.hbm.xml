@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2013 2:07:58 PM by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="group4_mlstats.People" table="people" catalog="group4_mlstats">
+        <id name="message_ID" type="string">
+            <column name="message_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="mailing_list_url" type="string">
+            <column name="mailing_list_url" />
+        </property>
+        <property name="mailing_list" type="string">
+            <column name="mailing_list" />
+        </property>
+        <property name="first_date" type="timestamp">
+            <column name="first_date" length="19" />
+        </property>
+        <property name="first_date_tz" type="int">
+            <column name="first_date_tz" />
+        </property>
+        <property name="arrival_date" type="timestamp">
+            <column name="first_date" length="19" />
+        </property>
+        <property name="subject" type="string">
+            <column name="subject" />
+        </property>
+        <property name="message_body" type="string">
+            <column name="message_body" />
+        </property>
+        <property name="is_response_of" type="string">
+            <column name="is_response_of" />
+        </property>
+        <property name="mail_path" type="string">
+            <column name="mail_path" />
+        </property>
+    </class>
+</hibernate-mapping>

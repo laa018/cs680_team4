@@ -10,16 +10,16 @@ import java.util.Set;
 
 import org.hibernate.Session;
 
-import seminer.ActionMiner;
+//import seminer.ActionMiner;
 import seminer.File;
 import seminer.MinerUtils;
+import seminer.FileReader;
 
 import cvsanaly.Branches;
 import cvsanaly.FileLinks;
 import cvsanaly.FileTypes;
 import cvsanaly.Metrics;
 import cvsanaly.Repositories;
-import cvsanaly.FileReader;
 
 public class CvsAnalyFileReader implements FileReader
 {
@@ -67,10 +67,10 @@ public class CvsAnalyFileReader implements FileReader
       this.verbose = verbose;
    }
 
-   public ArrayList<File> parseFile(int repositoryId, String projectName)
+   public List<File> parseFile(String projectName)
    {
       Map<Integer, Set<String>> cache = new HashMap<Integer, Set<String>>();
-      ArrayList<File> fileObjList = new ArrayList<File>();
+      List<File> fileObjList = new ArrayList<File>();
 
       Session effortMetricsSession = MinerUtils
             .openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
@@ -78,11 +78,13 @@ public class CvsAnalyFileReader implements FileReader
 
       Session cvsanalySession = MinerUtils.openSession("cvsanaly/cvsanaly_hibernate.cfg.xml");
       cvsanalySession.beginTransaction();
+      int repositoryId = 0;
 
       try
       {
          Repositories repository = (Repositories) cvsanalySession.createQuery(
-               "FROM Repositories WHERE id = " + repositoryId).uniqueResult();
+               "FROM Repositories WHERE name  LIKE '%" + projectName + "%';");
+         repositoryId = repository.getId();
 
          List<FileLinks> result = cvsanalySession
                .createSQLQuery(
@@ -217,19 +219,17 @@ public class CvsAnalyFileReader implements FileReader
                      effortMetricsFile.setHalstead_vol(metrics.getHalsteadVol());
                   }
 
-                  if (write)
-                  {
-                     if (!linkOnly)
-                     {
-                        effortMetricsSession.saveOrUpdate(effortMetricsFile);
-                     }
-                     ActionMiner.update(effortMetricsSession, projectName, type.getFileId(),
-                           effortMetricsFile);
-                  }
-                  else
-                  {
-                     fileObjList.add(effortMetricsFile);
-                  }
+                  fileObjList.add(effortMetricsFile);
+
+//                  if (write)
+//                  {
+//                     if (!linkOnly)
+//                     {
+//                        effortMetricsSession.saveOrUpdate(effortMetricsFile);
+//                     }
+//                     ActionMiner.update(effortMetricsSession, projectName, type.getFileId(),
+//                           effortMetricsFile);
+//                  }
                }
             }
          }
@@ -241,6 +241,19 @@ public class CvsAnalyFileReader implements FileReader
       }
 
       return fileObjList;
+   }
+
+   private boolean isTableDirty(Session s, String projectName)
+   {
+      List results = s.createQuery("FROM File WHERE project_name = '" + projectName + "'").list();
+      if (results.size() > 0)
+      {
+         return false;
+      }
+      else
+      {
+         return true;
+      }
    }
 
 }

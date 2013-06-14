@@ -3,16 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 27, 2013 2:07:58 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="group4_cvsanaly.People" table="people" catalog="group4_cvsanaly">
-        <id name="id" type="int">
-            <column name="id" />
+    <class name="group4_mlstats.MailingListsPeople" table="mailing_lists_people" catalog="group4_mlstats">
+        <id name="email_address" type="string">
+            <column name="email_address" />
             <generator class="assigned" />
         </id>
-        <property name="name" type="string">
-            <column name="name" />
-        </property>
-        <property name="email" type="string">
-            <column name="email" />
+        <property name="mailing_list_url" type="string">
+            <column name="mailing_list_url" />
         </property>
     </class>
 </hibernate-mapping>
