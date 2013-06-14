@@ -82,16 +82,15 @@ public class CvsAnalyFileReader implements FileReader
 
       try
       {
-         Repositories repository = (Repositories) cvsanalySession.createQuery(
-               "FROM Repositories WHERE name  LIKE '%" + projectName + "%';");
+         Repositories repository = (Repositories) cvsanalySession.createSQLQuery("Select * FROM repositories WHERE name  LIKE '%" + projectName + "%'").addEntity("repositories",  Repositories.class).uniqueResult();
          repositoryId = repository.getId();
 
          List<FileLinks> result = cvsanalySession
                .createSQLQuery(
                      "SELECT file_links.* from file_links LEFT OUTER JOIN files ON "
-                           + "file_links.file_id = files.id LEFT OUTER JOIN file_types ON "
-                           + "file_types.file_id = file_links.file_id WHERE files.repository_id = "
-                           + repositoryId + " AND file_types.type IS NOT NULL")
+                           + "file_links.file_id = files.id" /* LEFT OUTER JOIN file_types ON "
+                           + "file_types.file_id = file_links.file_id */ + " WHERE files.repository_id = "
+                           + repositoryId) /*+ " AND file_types.type IS NOT NULL")*/
                .addEntity("file_links", FileLinks.class).list();
          for (FileLinks fileLink : result)
          {
