@@ -220,16 +220,6 @@ public class CvsAnalyFileReader implements FileReader
                   }
 
                   fileObjList.add(effortMetricsFile);
-
-//                  if (write)
-//                  {
-//                     if (!linkOnly)
-//                     {
-//                        effortMetricsSession.saveOrUpdate(effortMetricsFile);
-//                     }
-//                     ActionMiner.update(effortMetricsSession, projectName, type.getFileId(),
-//                           effortMetricsFile);
-//                  }
                }
             }
          }
