@@ -17,7 +17,7 @@ public class BichoReader implements IssueReader {
 	}
 	
 	public List<Issues> parseFile(String projectName) {
-		List<Object[]> resultList = s.createSQLQuery("SELECT * FROM issues LEFT OUTER JOIN changes ON issues.tracker_id = changes.id LEFT OUTER JOIN trackers ON trackers.id = issues.tracker_id  WHERE trackers.url LIKE '%" + projectName + "%'").addEntity("issues", bicho.Issues.class).addEntity("changes", Changes.class).addEntity("trackers", Trackers.class).list();
+		List<Object[]> resultList = s.createSQLQuery("SELECT {issues.*}, {changes.*} FROM issues LEFT OUTER JOIN changes ON changes.issue_id = issues.id LEFT OUTER JOIN trackers ON trackers.id = issues.tracker_id  WHERE trackers.url LIKE '%" + projectName + "%'").addEntity("issues", bicho.Issues.class).addEntity("changes", Changes.class).list();
 		List<Issues> issueList = new ArrayList<Issues>();
 		for (Object[] result : resultList) {
 			bicho.Issues bichoIssue = (bicho.Issues)result[0];
@@ -26,7 +26,7 @@ public class BichoReader implements IssueReader {
 			Issues effortMetricsIssue = new Issues();
 			effortMetricsIssue.setProject_name(projectName);
 			effortMetricsIssue.setIssue_id(bichoIssue.getTrackerId() + "");
-			effortMetricsIssue.setIssue_update_timestamp(bichoChanges.getChangedOn());
+			effortMetricsIssue.setIssue_update_timestamp((bichoChanges != null) ? bichoChanges.getChangedOn() : null);
 			effortMetricsIssue.setIssue_summary(bichoIssue.getSummary());
 			effortMetricsIssue.setIssue_description(bichoIssue.getDescription());
 			effortMetricsIssue.setIssue_submit_timestamp(bichoIssue.getSubmittedOn());		
