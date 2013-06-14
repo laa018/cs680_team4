@@ -17,6 +17,7 @@ public class SEMiner {
 
 	public static void main(String[] args) throws IOException, ParseException{      
 		Session cvsanalySession = MinerUtils.openSession("cvsanaly/cvsanaly_hibernate.cfg.xml");
+		Session bichoSession = MinerUtils.openSession("bicho/bicho_hibernate.cfg.xml");	
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -64,9 +65,9 @@ public class SEMiner {
         }
                 
 		Miner miner = new DefaultMiner();
-		miner.setActionReader(new CvsAnalyActionReader());
+		miner.setActionReader(new CvsAnalyActionReader(cvsanalySession));
 		miner.setFileReader(null);
-		miner.setIssueReader(new BichoReader());
+		miner.setIssueReader(new BichoReader(bichoSession));
 		miner.setMailingListReader(null);
 		miner.setPeopleReader(null);
 		miner.setReleaseOverviewReader(new CvsAnalyReleaseOverviewReader(cvsanalySession));

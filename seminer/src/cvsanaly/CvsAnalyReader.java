@@ -9,12 +9,12 @@ import seminer.Action;
 import seminer.ActionReader;
 import seminer.MinerUtils;
 
-public class CvsAnalyActionReader implements ActionReader {
+public class CvsAnalyReader implements ActionReader {
 	
 	private final static String tagquery = "SELECT DISTINCT tags.name FROM tags LEFT OUTER JOIN tag_revisions ON tag_revisions.tag_id = tags.id LEFT OUTER JOIN file_links ON file_links.commit_id = tag_revisions.commit_id";
 	private Session cvsanalySession;
 	
-	public CvsAnalyActionReader(Session s) {
+	public CvsAnalyReader(Session s) {
 		this.cvsanalySession = s;
 	}
 	
@@ -23,7 +23,7 @@ public class CvsAnalyActionReader implements ActionReader {
 		Session effortMetricsSession = MinerUtils.openSession("effortmetrics/effortmetrics_hibernate.cfg.xml");
 
 		Integer maxId = (Integer)effortMetricsSession.createQuery("SELECT MAX(action_id) FROM Action").uniqueResult();
-		
+			
 		List<Object[]> resultList = cvsanalySession.createSQLQuery("SELECT * FROM scmlog LEFT OUTER JOIN actions ON actions.commit_id = scmlog.id LEFT OUTER JOIN commits_lines ON commits_lines.commit_id = scmlog.id LEFT OUTER JOIN repositories ON repositories.id = scmlog.repository_id WHERE repositories.name LIKE '%" + projectName + "%'").addEntity("scmlog", Scmlog.class).addEntity("actions", Actions.class).addEntity("commits_lines", CommitsLines.class).addEntity("repositories", Repositories.class).list();
 		List<Action> actionList = new ArrayList<Action>();
 		for (Object[] result : resultList) {
