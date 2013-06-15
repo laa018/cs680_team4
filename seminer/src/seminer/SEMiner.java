@@ -76,7 +76,7 @@ public class SEMiner {
 		}
         
 		Miner miner = new DefaultMiner();
-		miner.setActionReader(new CvsAnalyActionReader(cvsanalySession));
+		miner.setActionReader(new CvsAnalyActionReader(cvsanalySession, effortMetricsSession));
 		miner.setFileReader(new CvsAnalyFileReader(cvsanalySession));
 		miner.setIssueReader(new BichoReader(bichoSession));
 		miner.setMailingListReader(null);

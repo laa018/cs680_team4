@@ -7,21 +7,26 @@ import org.hibernate.Session;
 
 import seminer.Action;
 import seminer.ActionReader;
+import seminer.MinerUtils;
 
 public class CvsAnalyActionReader implements ActionReader {
 	
 	private final static String tagquery = "SELECT DISTINCT tags.name FROM tags LEFT OUTER JOIN tag_revisions ON tag_revisions.tag_id = tags.id LEFT OUTER JOIN file_links ON file_links.commit_id = tag_revisions.commit_id";
 	private Session s;
+	private Session e;
 	
-	public CvsAnalyActionReader(Session s) {
+	public CvsAnalyActionReader(Session s, Session e) {
 		this.s = s;
+		this.e = e;
 	}
 	
 	@Override
 	public List<Action> parseFile(String projectName) {
+		Integer maxId = (Integer)e.createQuery("SELECT MAX(action_id) FROM Action").uniqueResult();
+		
 		List<Object[]> resultList = s.createSQLQuery("SELECT * FROM scmlog LEFT OUTER JOIN actions ON actions.commit_id = scmlog.id " + /*LEFT OUTER JOIN commits_lines ON commits_lines.commit_id = scmlog.id*/ "LEFT OUTER JOIN repositories ON repositories.id = scmlog.repository_id WHERE repositories.name LIKE '%" + projectName + "%'").addEntity("scmlog", Scmlog.class).addEntity("actions", Actions.class)/*.addEntity("commits_lines", CommitsLines.class)*/.addEntity("repositories", Repositories.class).list();
 		List<Action> actionList = new ArrayList<Action>();
-		int i = 0;
+
 		for (Object[] result : resultList) {
 			Scmlog scmlog = (Scmlog)result[0];
 			Actions cvsanalyAction = (Actions)result[1];
@@ -31,7 +36,7 @@ public class CvsAnalyActionReader implements ActionReader {
 			
 			Action effortMetricsAction = new Action();
 			effortMetricsAction.setProject_name(projectName);
-			effortMetricsAction.setAction_id(i++);
+			effortMetricsAction.setAction_id(++maxId);
 			effortMetricsAction.setAction_timestamp(scmlog.getDate());
 			effortMetricsAction.setAction_type("Version Control Commits");
 			effortMetricsAction.setCommit_message(scmlog.getMessage());			
